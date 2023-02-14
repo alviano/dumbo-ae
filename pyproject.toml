@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dumbo-ae"
-version = "0.1.2"
+version = "0.1.3"
 description = "CLI per il corso di Architettura degli Elaboratori"
 authors = ["Mario Alviano <mario.alviano@gmail.com>"]
 readme = "README.md"

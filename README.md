@@ -20,5 +20,5 @@ $ pip3 install dumbo-ae
 
 Per controllare la propria soluzione a un esercizio è necessario indicare l'UUID dell'esercizio (fornito in aula) e il file sorgente della propria soluzione: 
 ```bash
-$ python3 -m dumbo-ae checker --of <UUID> <file-sorgente>
+$ python3 -m dumbo_ae checker --of <UUID> <file-sorgente>
 ```
