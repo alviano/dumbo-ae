@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "dumbo-ae"
+version = "0.1.0"
+description = "CLI per il corso di Architettura degli Elaboratori"
+authors = ["Mario Alviano <mario.alviano@gmail.com>"]
+readme = "README.md"
+packages = [{include = "dumbo_ae"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+dumbo-utils = "^0.1.6"
+requests = "^2.28.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
