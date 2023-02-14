@@ -8,8 +8,13 @@ from dumbo_utils.console import console
 from dumbo_utils.validation import validate
 
 
+SERVER = 'https://server.alviano.net'
+LOCAL_SERVER = 'http://localhost:8000'
+
+
 @dataclasses.dataclass(frozen=True)
 class AppOptions:
+    local_server: bool = dataclasses.field(default=False)
     debug: bool = dataclasses.field(default=False)
 
 
@@ -41,6 +46,7 @@ def version_callback(value: bool):
 
 @app.callback()
 def main(
+        local_server: bool = typer.Option(False, "--local-server", help="Use a DEV local server"),
         debug: bool = typer.Option(False, "--debug", help="Don't minimize browser"),
         version: bool = typer.Option(False, "--version", callback=version_callback, is_eager=True,
                                      help="Print version and exit"),
@@ -48,6 +54,11 @@ def main(
     """
     CLI per il corso di Architettura degli Elaboratori.
     """
+    global app_options
+    app_options = AppOptions(
+        local_server=local_server,
+        debug=debug,
+    )
 
 
 @app.command(name="checker")
@@ -69,9 +80,12 @@ def checker(
     validate("code", code, max_len=99999, help_msg="Il file eccede il limite di 99.999 caratteri")
 
     with console.status("In attesa del risultato..."):
-        response = requests.post('http://localhost:8000/quiz-api/v2/student/self-correct/', data={
-            'exercise': of,
-            'code': code,
-        })
+        response = requests.post(
+            f'{LOCAL_SERVER if app_options.local_server else SERVER}/quiz-api/v2/student/self-correct/',
+            data={
+                'exercise': of,
+                'code': code,
+            }
+        )
     validate("status_code", response.status_code, equals=200, help_msg="Interazione con il server fallita")
     console.print(response.json()['result'])
