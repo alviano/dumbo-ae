@@ -47,7 +47,7 @@ def version_callback(value: bool):
 @app.callback()
 def main(
         local_server: bool = typer.Option(False, "--local-server", help="Use a DEV local server"),
-        debug: bool = typer.Option(False, "--debug", help="Don't minimize browser"),
+        debug: bool = typer.Option(False, "--debug", help="Report more detailed errors (for developers)"),
         version: bool = typer.Option(False, "--version", callback=version_callback, is_eager=True,
                                      help="Print version and exit"),
 ):
